@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&display=swap');
+
+body {
+  margin: 0;
+  background: #18191c;
+  color: #eaeaea;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+}
+
+nav {
+  font-family: inherit;
+}
+
+/* Optional: smooth transitions for navbar */
+nav button {
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hide scroll bar for navbar if needed */
+nav::-webkit-scrollbar {
+  display: none;
+}
