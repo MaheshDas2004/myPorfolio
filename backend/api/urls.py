@@ -5,4 +5,5 @@ urlpatterns = [
     path('link/', views.LinkView.as_view()),
     path('project/', views.ProjectView.as_view()),
     path('aboutme/',views.AboutMeView.as_view()),
+    path('contact/',views.ContactView.as_view()),
 ]

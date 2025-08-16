@@ -1,18 +1,25 @@
-import { Code, Database, Smartphone, Palette, ExternalLink, Github, Mail, Phone, MapPin, Send } from "lucide-react"
-
-import React from 'react'
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+import React from "react";
+import UseFetch from "../hooks/UseFetch";
 
 const Contact = () => {
+  const { data: info, loading, error } = UseFetch("http://localhost:8000/api/v1/contact/");
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+
   return (
     <div id="contact" className="min-h-screen bg-black text-white font-mono">
-        <div className="container mx-auto px-20 py-12">
+      {info.map((item, idx) => (
+        <div key={idx} className="container mx-auto px-20 py-12">
           {/* Contact Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">
               <span className="text-purple-400">Get</span> In Touch
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+              {item.heading ||
+                "Have a project in mind? Let's discuss how we can work together to bring your ideas to life."}
             </p>
           </div>
 
@@ -21,8 +28,8 @@ const Contact = () => {
             <div>
               <h3 className="text-2xl font-bold mb-6">Let's Talk</h3>
               <p className="text-gray-400 leading-relaxed mb-8">
-                I'm always interested in hearing about new projects and opportunities. Whether you're a company looking
-                to hire, or you're a fellow developer wanting to collaborate, I'd love to hear from you.
+                {item.description ||
+                  "I'm always interested in hearing about new projects and opportunities. Whether you're a company looking to hire, or you're a fellow developer wanting to collaborate, I'd love to hear from you."}
               </p>
 
               {/* Contact Information */}
@@ -33,7 +40,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email</p>
-                    <p className="text-white font-medium">john.doe@example.com</p>
+                    <p className="text-white font-medium">{item.email}</p>
                   </div>
                 </div>
 
@@ -43,7 +50,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Phone</p>
-                    <p className="text-white font-medium">+1 (555) 123-4567</p>
+                    <p className="text-white font-medium">+91 {item.phone}</p>
                   </div>
                 </div>
 
@@ -53,7 +60,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Location</p>
-                    <p className="text-white font-medium">San Francisco, CA</p>
+                    <p className="text-white font-medium">{item.location}</p>
                   </div>
                 </div>
               </div>
@@ -62,15 +69,30 @@ const Contact = () => {
               <div>
                 <h4 className="text-xl font-bold mb-4">Follow Me</h4>
                 <div className="flex gap-4">
-                  <button className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                  <a
+                    href={item.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
+                  >
                     GitHub
-                  </button>
-                  <button className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                  </a>
+                  <a
+                    href={item.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
+                  >
                     LinkedIn
-                  </button>
-                  <button className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                  </a>
+                  <a
+                    href={item.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
+                  >
                     Twitter
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -141,8 +163,9 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </div>
-  )
-}
+      ))}
+    </div>
+  );
+};
 
-export default Contact
+export default Contact;

@@ -16,7 +16,7 @@ export default function About() {
       <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Header */}
         {aboutme.map((info, idx) => (
-          <>
+          <div key={idx}>
             <div className="text-center mb-16">
               <h1 className="text-4xl font-bold mb-4">
                 <span className="text-purple-400">About</span> Me
@@ -26,7 +26,7 @@ export default function About() {
               </p>
             </div>
 
-            <div key={idx} className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
               {/* Left Column */}
               <div>
                 {/* Profile Image */}
@@ -97,7 +97,7 @@ export default function About() {
                 </div>
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>

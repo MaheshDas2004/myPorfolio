@@ -10,6 +10,9 @@ from about.serializers import LinkSerializer,WhatIDoSerializer,AboutMeSerializer
 from projects.models import Project
 from projects.serializers import ProjectSerializer
 
+from contact.models import ContactInfo
+from contact.serializers import Contactserializer
+
 
 # Create your views here.
 class HeroView(generics.ListAPIView):
@@ -31,3 +34,7 @@ class ProjectView(generics.ListAPIView):
 class AboutMeView(generics.ListAPIView):
     queryset=PersonalInfo.objects.all()
     serializer_class=AboutMeSerializer
+
+class ContactView(generics.ListAPIView):
+    queryset=ContactInfo.objects.all()
+    serializer_class=Contactserializer
