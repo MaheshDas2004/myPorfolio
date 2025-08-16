@@ -13,7 +13,28 @@ class SocialLinks(models.Model):
 
 class TechnicalSkill(models.Model):
     skill = models.CharField(max_length=50, unique=True)
-    # Aap yahan icon ya category bhi add kar sakte hain
-
+    
     def __str__(self):
         return self.skill
+
+class WhatIDo(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    icon_name = models.CharField(
+        max_length=50, 
+        help_text="Lucide React icon name (e.g., 'Code', 'Database', 'Server')"
+    )
+
+    def __str__(self):
+        return self.title
+    
+class PersonalInfo(models.Model):
+    name=models.CharField(max_length=100)
+    profile_img=models.ImageField(upload_to="profile_img/",blank=True, null=True)
+    title=models.CharField(max_length=200)
+    bio=models.TextField()
+    technologies = models.ManyToManyField(TechnicalSkill, related_name="personalinfo")
+    whatido = models.ManyToManyField(WhatIDo, related_name="personalinfo")
+
+    def __str__(self):
+        return self.name

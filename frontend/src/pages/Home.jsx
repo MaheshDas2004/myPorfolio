@@ -5,10 +5,11 @@ import About from '../components/About'
 import Featprojects from '../components/Featprojects'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
+import { Routes,Route } from 'react-router-dom'
 
 const Home = () => {
   return (
-    <div>
+    <div id='/' className='scroll-smooth'>
         <Navbar/>
         <Hero/>
         <Featprojects/>

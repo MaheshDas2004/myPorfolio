@@ -4,7 +4,7 @@ import { Github, Linkedin, Download } from "lucide-react"
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b  from-gray-900 to-black text-white">
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-20 py-12">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
