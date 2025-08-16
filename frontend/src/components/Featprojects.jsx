@@ -10,7 +10,7 @@ export default function Featprojects() {
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
   return (
     <div id="projects" className="min-h-screen bg-black text-white font-mono">
-      <div className="container mx-auto px-20 py-8">
+      <div className="container mx-auto px-20 py-11">
         <div className="">
           {/* Projects Header */}
           <div className="text-center mb-16">
