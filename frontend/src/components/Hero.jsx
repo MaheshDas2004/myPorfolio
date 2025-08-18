@@ -28,9 +28,9 @@ export default function Hero() {
     return <p style={{ color: "red" }}>Error fetching links: {linkError}</p>;
   }
 
-  const download = () => {
+  const download = (mycv) => {
     const link = document.createElement("a");
-    link.href = "/CVUpdatedMahesh.pdf"; // public folder path
+    link.href = mycv; // mere githu ka raw url store
     link.download = "Mahesh_Das_CV.pdf"; // file name on download
     link.click();
   };
@@ -62,8 +62,7 @@ export default function Hero() {
             {links.map((link,i)=>(
             <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <button
-                onClick={download}
-                download
+                onClick={()=>download(info.mycv)}
                 className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded-lg flex items-center gap-2 transition-transform hover:scale-105 duration-300 w-full sm:w-auto justify-center"
               >
                 <Download className="w-5 h-5" />
