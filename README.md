@@ -35,22 +35,23 @@ The backend uses **Django REST Framework** to provide a RESTful API, which the R
 ---
 
 ## 🗂 Folder Structure
-portfolio/
+myportfolio/
 ├── backend/
-│   ├── __pycache__/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── requirements.txt
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
+│   ├── about/
+│   ├── api/
+│   ├── certficates/
+│   ├── contact/
+│   ├── home/
+│   ├── portfolio_core/
+│   ├── projects/
+│   ├── db.sqlite3
+│   └── manage.py
+│
 ├── frontend/
 │   └── (React app files...)
 ├── venv/
 │   └── (Python packages...)
 ├── .gitignore
-├── db.sqlite3
-├── manage.py
 └── README.md
 
 ---

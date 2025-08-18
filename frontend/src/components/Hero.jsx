@@ -134,7 +134,7 @@ export default function Hero() {
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="relative">
               <img
-                src="/hero.jpeg"
+                src={info.hero_img}
                 alt="/hero/jpg"
                 className="rounded-2xl w-full max-w-lg sm:max-w-md lg:max-w-xl object-cover shadow-2xl shadow-purple-900/30 -ml-6"
               />

@@ -33,7 +33,8 @@ export default function About() {
                 <div className="mb-8">
                   <div className="relative w-full max-w-md mx-auto">
                     <img
-                      src="../public/about.jpg"
+                      src={info.profile_img
+                      }
                       alt={info.name || "Profile"}
                       width={400}
                       height={500}

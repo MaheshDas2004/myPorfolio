@@ -32,7 +32,7 @@ export default function Featprojects() {
                 {/* Project Image */}
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src={pro.image}
+                    src={pro.project_image}
                     alt={pro.title}
                     width={400}
                     height={300}
