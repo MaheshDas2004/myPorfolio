@@ -7,7 +7,7 @@ class Project(models.Model):
     is_featured = models.BooleanField(default=False)
     github_link = models.URLField(max_length=200)
     demo_link = models.URLField(max_length=200, blank=True, null=True)
-
+    
     technologies = models.ManyToManyField(TechnicalSkill, related_name="projects")
 
     def __str__(self):
