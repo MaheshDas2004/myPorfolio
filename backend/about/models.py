@@ -30,7 +30,7 @@ class WhatIDo(models.Model):
     
 class PersonalInfo(models.Model):
     name=models.CharField(max_length=100)
-    profile_img=models.ImageField(upload_to="profile_img/",blank=True, null=True)
+    profile_img=models.URLField(max_length=500, blank=True, null=True)
     title=models.CharField(max_length=200)
     bio=models.TextField()
     technologies = models.ManyToManyField(TechnicalSkill, related_name="personalinfo")

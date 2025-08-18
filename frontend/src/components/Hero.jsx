@@ -2,7 +2,7 @@ import { Github, Linkedin, Download } from "lucide-react";
 import UseFetch from "../hooks/UseFetch";
 
 export default function Hero() {
-  const { data, loading, error } = UseFetch(
+  const { data:infos, loading, error } = UseFetch(
     "http://localhost:8000/api/v1/hero/"
   );
   const {
@@ -28,22 +28,18 @@ export default function Hero() {
     return <p style={{ color: "red" }}>Error fetching links: {linkError}</p>;
   }
 
-  // Handle cases where data might not be available
-  if (!data || data.length === 0 || !links || links.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-        <p>No data available.</p>
-      </div>
-    );
-  }
-
-  // Since it's a hero section, we'll likely only have one entry.
-  const info = data[0];
-  const link = links[0];
+  const download = () => {
+    const link = document.createElement("a");
+    link.href = "/CVUpdatedMahesh.pdf"; // public folder path
+    link.download = "Mahesh_Das_CV.pdf"; // file name on download
+    link.click();
+  };
 
   return (
     <div className="min-h-[85vh] bg-gradient-to-b from-gray-900 to-black text-white flex items-center">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8">
+      {infos.map((info,idx)=>(
+
+      <div key={idx} className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 order-2 lg:order-1">
@@ -63,15 +59,16 @@ export default function Hero() {
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <a
-                href={info.cv}
+            {links.map((link,i)=>(
+            <div key={i} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <button
+                onClick={download}
                 download
                 className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded-lg flex items-center gap-2 transition-transform hover:scale-105 duration-300 w-full sm:w-auto justify-center"
               >
                 <Download className="w-5 h-5" />
                 Download CV
-              </a>
+              </button>
 
               <div className="flex items-center gap-6">
                 <a
@@ -95,6 +92,8 @@ export default function Hero() {
                 </a>
               </div>
             </div>
+
+            ))}
             
             {/* --- Improved Education */}
             <div className="pt-5">
@@ -143,6 +142,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      ))}
     </div>
   );
 }

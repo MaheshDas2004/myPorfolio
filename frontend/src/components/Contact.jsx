@@ -1,9 +1,59 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import UseFetch from "../hooks/UseFetch";
 
 const Contact = () => {
-  const { data: info, loading, error } = UseFetch("http://localhost:8000/api/v1/contact/");
+  const { data: info, loading, error } = UseFetch(
+    "http://localhost:8000/api/v1/contact/"
+  );
+
+  // --- Single State for Form ---
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://dmahesh18.app.n8n.cloud/webhook/contact-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": "secret123" // Uncomment if IF Node uses API Key
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        alert("Failed to send message.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error sending message.");
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
@@ -24,7 +74,7 @@ const Contact = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Left Column - Let's Talk */}
+            {/* Left Column */}
             <div>
               <h3 className="text-2xl font-bold mb-6">Let's Talk</h3>
               <p className="text-gray-400 leading-relaxed mb-8">
@@ -32,7 +82,6 @@ const Contact = () => {
                   "I'm always interested in hearing about new projects and opportunities. Whether you're a company looking to hire, or you're a fellow developer wanting to collaborate, I'd love to hear from you."}
               </p>
 
-              {/* Contact Information */}
               <div className="space-y-6 mb-8">
                 <div className="flex items-center gap-4 bg-gray-900/50 rounded-lg p-4">
                   <div className="text-purple-400">
@@ -97,61 +146,81 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Right Column - Send Message Form */}
+            {/* Right Column - Form */}
             <div>
               <h3 className="text-2xl font-bold mb-6">Send Message</h3>
-              <form className="space-y-6">
-                {/* Name Fields */}
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">First Name</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      First Name
+                    </label>
                     <input
                       type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
                       placeholder="John"
                       className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Last Name
+                    </label>
                     <input
                       type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
                       placeholder="Doe"
                       className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
                     />
                   </div>
                 </div>
 
-                {/* Email */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Email
+                  </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="john@example.com"
                     className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
                   />
                 </div>
 
-                {/* Subject */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Subject
+                  </label>
                   <input
                     type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
                     placeholder="Project Discussion"
                     className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
                   />
                 </div>
 
-                {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Message
+                  </label>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={6}
                     placeholder="Tell me about your project..."
                     className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 resize-none"
                   />
                 </div>
 
-                {/* Send Button */}
                 <button
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 font-medium"
