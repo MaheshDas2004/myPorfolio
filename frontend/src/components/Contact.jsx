@@ -20,8 +20,8 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const url=process.env.WEBHOOK_URL;
-  const key=SECRET_KEY;
+  const url=process.env.REACT_APP_WEBHOOK_URL;
+  const key=process.env.REACT_APP_SECRET_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
