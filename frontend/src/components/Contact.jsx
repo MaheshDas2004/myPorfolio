@@ -20,17 +20,17 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+  const url=process.env.WEBHOOK_URL;
+  const key=SECRET_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://dmahesh18.app.n8n.cloud/webhook/contact-form",
+      const response = await fetch(url,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": "secret123", // Uncomment if IF Node uses API Key
+            "x-api-key": key, // Uncomment if IF Node uses API Key
           },
           body: JSON.stringify(formData),
         }

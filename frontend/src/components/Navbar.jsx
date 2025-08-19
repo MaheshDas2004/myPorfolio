@@ -15,7 +15,7 @@ const Navbar = () => {
         
         {/* Left: Portfolio + Nav Links */}
           <div className="text-purple-400 font-semibold text-lg">
-            Portfolio
+            {'<Portfolio />'} 
           </div>
           {location.pathname==="/"?(
         <div className="flex items-center space-x-6">
