@@ -10,7 +10,6 @@ import { Routes,Route } from 'react-router-dom'
 const Home = () => {
   return (
     <div id='/' className='scroll-smooth'>
-        <Navbar/>
         <Hero/>
         <Featprojects/>
         <About/>

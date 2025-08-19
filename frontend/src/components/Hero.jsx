@@ -118,7 +118,7 @@ export default function Hero() {
                 <div className="text-center sm:text-left">
                   <p className="text-sm text-gray-400">Focus Areas</p>
                   <h3 className="text-lg font-bold text-white mt-1">
-                    Web Dev, AI, OOPs
+                    Web Dev, GenAI, OOPs
                   </h3>
                    <p className="text-sm text-gray-500">
                     Key Interests

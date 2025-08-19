@@ -3,10 +3,11 @@ from about.models import TechnicalSkill
 class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+    is_major = models.BooleanField(default=False)
     project_image = models.URLField(max_length=500, blank=True, null=True)
     is_featured = models.BooleanField(default=False)
     github_link = models.URLField(max_length=200)
-    demo_link = models.URLField(max_length=200, blank=True, null=True)
+    demo_id = models.CharField(max_length=200, blank=True, null=True)
     
     technologies = models.ManyToManyField(TechnicalSkill, related_name="projects")
 

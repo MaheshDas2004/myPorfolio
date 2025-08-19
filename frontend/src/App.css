@@ -16,7 +16,6 @@ nav button {
   transition: background 0.2s, color 0.2s;
 }
 
-/* Hide scroll bar for navbar if needed */
-nav::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
 }

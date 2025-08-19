@@ -30,7 +30,7 @@ const Contact = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": "secret123" // Uncomment if IF Node uses API Key
+            "x-api-key": "secret123", // Uncomment if IF Node uses API Key
           },
           body: JSON.stringify(formData),
         }
@@ -119,7 +119,7 @@ const Contact = () => {
                 <h4 className="text-xl font-bold mb-4">Follow Me</h4>
                 <div className="flex gap-4">
                   <a
-                    href={item.github}
+                    href="https://github.com/MaheshDas2004"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
@@ -127,7 +127,7 @@ const Contact = () => {
                     GitHub
                   </a>
                   <a
-                    href={item.linkedin}
+                    href="https://www.linkedin.com/in/maheshii/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
@@ -135,12 +135,12 @@ const Contact = () => {
                     LinkedIn
                   </a>
                   <a
-                    href={item.twitter}
+                    href="https://www.instagram.com/d_mahesh18/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
                   >
-                    Twitter
+                    Instagram
                   </a>
                 </div>
               </div>
@@ -152,12 +152,16 @@ const Contact = () => {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="firstName"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       First Name
                     </label>
                     <input
                       type="text"
                       name="firstName"
+                      required
                       value={formData.firstName}
                       onChange={handleChange}
                       placeholder="John"
@@ -165,12 +169,16 @@ const Contact = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="lastName"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Last Name
                     </label>
                     <input
                       type="text"
                       name="lastName"
+                      required
                       value={formData.lastName}
                       onChange={handleChange}
                       placeholder="Doe"
@@ -180,12 +188,16 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Email
                   </label>
                   <input
                     type="email"
                     name="email"
+                    required
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="john@example.com"
@@ -194,12 +206,16 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Subject
                   </label>
                   <input
                     type="text"
                     name="subject"
+                    required
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Project Discussion"
@@ -208,11 +224,15 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
                     Message
                   </label>
                   <textarea
                     name="message"
+                    required
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}

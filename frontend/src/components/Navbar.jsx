@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import {Routes,Route,Link} from "react-router-dom"
+import {Routes,Route,Link, useLocation, useNavigate} from "react-router-dom"
+import { ArrowLeft } from "lucide-react";
 const Navbar = () => {
   const [active, setActive] = useState("Home");
-
+  const Navigate=useNavigate();
   const makeactive=(name)=>{
     setActive(name)
   }
+  const location=useLocation();
 
   return (
     <header className="sticky top-0 z-50 bg-black/10 backdrop-blur-md text-white">
@@ -15,6 +17,7 @@ const Navbar = () => {
           <div className="text-purple-400 font-semibold text-lg">
             Portfolio
           </div>
+          {location.pathname==="/"?(
         <div className="flex items-center space-x-6">
             <a onClick={()=>makeactive("Home")} href="#/" className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
                 active === "Home"
@@ -37,7 +40,21 @@ const Navbar = () => {
                   : "text-gray-300 hover:text-white"
               }`}>Contact</a>
         </div>
-
+          ):
+          (<div className="flex items-center space-x-6">
+  <button
+    onClick={() => Navigate("/")}
+    className={`cursor-pointer flex items-center gap-2 px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
+      active === "home"
+        ? "bg-purple-600 text-white"
+        : "text-gray-300 hover:text-white"
+    }`}
+  >
+    <ArrowLeft className="w-5 h-5" />
+    Back to Home 
+  </button>
+</div>
+)}
       </div>
     </header>
   );
