@@ -20,21 +20,21 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const url=process.env.REACT_APP_WEBHOOK_URL;
-  const key=process.env.REACT_APP_SECRET_KEY;
+
+  const url = import.meta.env.VITE_WEBHOOK_URL;
+  const key = import.meta.env.VITE_SECRET_KEY;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(url,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": key, // Uncomment if IF Node uses API Key
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": key,
+        },
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         alert("Message sent successfully!");
@@ -60,7 +60,7 @@ const Contact = () => {
 
   return (
     <div id="contact" className="min-h-screen bg-black text-white font-mono">
-      {info.map((item, idx) => (
+      {info && info.map((item, idx) => (
         <div key={idx} className="container mx-auto px-20 py-12">
           {/* Contact Header */}
           <div className="text-center mb-16">
@@ -160,6 +160,7 @@ const Contact = () => {
                     </label>
                     <input
                       type="text"
+                      id="firstName"
                       name="firstName"
                       required
                       value={formData.firstName}
@@ -177,6 +178,7 @@ const Contact = () => {
                     </label>
                     <input
                       type="text"
+                      id="lastName"
                       name="lastName"
                       required
                       value={formData.lastName}
@@ -196,6 +198,7 @@ const Contact = () => {
                   </label>
                   <input
                     type="email"
+                    id="email"
                     name="email"
                     required
                     value={formData.email}
@@ -214,6 +217,7 @@ const Contact = () => {
                   </label>
                   <input
                     type="text"
+                    id="subject"
                     name="subject"
                     required
                     value={formData.subject}
@@ -231,6 +235,7 @@ const Contact = () => {
                     Message
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     required
                     value={formData.message}
