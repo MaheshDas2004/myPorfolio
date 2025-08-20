@@ -46,6 +46,7 @@ myportfolio/
 │   ├── projects/
 │   ├── db.sqlite3
 │   └── manage.py
+│   └── requirements.txt
 │
 ├── frontend/
 │   └── (React app files...)
@@ -53,8 +54,6 @@ myportfolio/
 │   └── (Python packages...)
 ├── .gitignore
 └── README.md
-└── requirements.txt
-
 ---
 
 ## 🚀 Installation

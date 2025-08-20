@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import UseFetch from "../hooks/UseFetch";
 
 const Contact = () => {
-  const { data: info, loading, error } = UseFetch(
-    "http://localhost:8000/api/v1/contact/"
-  );
+  const baseURL = import.meta.env.VITE_API_URL;
+  const { data: info, loading, error } = UseFetch(`${baseURL}/contact/`);
 
   // --- Single State for Form ---
   const [formData, setFormData] = useState({
@@ -55,74 +54,82 @@ const Contact = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+  if (loading) return (
+    <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center">
+      <p className="text-lg">Loading...</p>
+    </div>
+  );
+  if (error) return (
+    <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center">
+      <p className="text-red-400 text-lg">Error: {error}</p>
+    </div>
+  );
 
   return (
     <div id="contact" className="min-h-screen bg-black text-white font-mono">
       {info && info.map((item, idx) => (
-        <div key={idx} className="container mx-auto px-20 py-12">
+        <div key={idx} className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-8 sm:py-10 md:py-12">
           {/* Contact Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-4">
               <span className="text-purple-400">Get</span> In Touch
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
               {item.heading ||
                 "Have a project in mind? Let's discuss how we can work together to bring your ideas to life."}
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12">
             {/* Left Column */}
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Let's Talk</h3>
-              <p className="text-gray-400 leading-relaxed mb-8">
+            <div className="order-2 lg:order-1">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Let's Talk</h3>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
                 {item.description ||
                   "I'm always interested in hearing about new projects and opportunities. Whether you're a company looking to hire, or you're a fellow developer wanting to collaborate, I'd love to hear from you."}
               </p>
 
-              <div className="space-y-6 mb-8">
-                <div className="flex items-center gap-4 bg-gray-900/50 rounded-lg p-4">
-                  <div className="text-purple-400">
-                    <Mail className="w-5 h-5" />
+              <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
+                <div className="flex items-center gap-3 sm:gap-4 bg-gray-900/50 rounded-lg p-3 sm:p-4 hover:bg-gray-800/50 transition-colors duration-300">
+                  <div className="text-purple-400 flex-shrink-0">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Email</p>
-                    <p className="text-white font-medium">{item.email}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 bg-gray-900/50 rounded-lg p-4">
-                  <div className="text-purple-400">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Phone</p>
-                    <p className="text-white font-medium">+91 {item.phone}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs sm:text-sm text-gray-400">Email</p>
+                    <p className="text-white font-medium text-sm sm:text-base break-all">{item.email}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 bg-gray-900/50 rounded-lg p-4">
-                  <div className="text-purple-400">
-                    <MapPin className="w-5 h-5" />
+                <div className="flex items-center gap-3 sm:gap-4 bg-gray-900/50 rounded-lg p-3 sm:p-4 hover:bg-gray-800/50 transition-colors duration-300">
+                  <div className="text-purple-400 flex-shrink-0">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Location</p>
-                    <p className="text-white font-medium">{item.location}</p>
+                  <div className="min-w-0">
+                    <p className="text-xs sm:text-sm text-gray-400">Phone</p>
+                    <p className="text-white font-medium text-sm sm:text-base">+91 {item.phone}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 bg-gray-900/50 rounded-lg p-3 sm:p-4 hover:bg-gray-800/50 transition-colors duration-300">
+                  <div className="text-purple-400 flex-shrink-0">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs sm:text-sm text-gray-400">Location</p>
+                    <p className="text-white font-medium text-sm sm:text-base">{item.location}</p>
                   </div>
                 </div>
               </div>
 
               {/* Follow Me */}
               <div>
-                <h4 className="text-xl font-bold mb-4">Follow Me</h4>
-                <div className="flex gap-4">
+                <h4 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Follow Me</h4>
+                <div className="flex flex-wrap gap-2 sm:gap-4">
                   <a
                     href="https://github.com/MaheshDas2004"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
+                    className="px-3 sm:px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     GitHub
                   </a>
@@ -130,7 +137,7 @@ const Contact = () => {
                     href="https://www.linkedin.com/in/maheshii/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
+                    className="px-3 sm:px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     LinkedIn
                   </a>
@@ -138,7 +145,7 @@ const Contact = () => {
                     href="https://www.instagram.com/d_mahesh18/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300"
+                    className="px-3 sm:px-4 py-2 bg-gray-800 text-gray-300 rounded-md hover:bg-gray-700 hover:text-white transition-colors duration-300 text-sm sm:text-base"
                   >
                     Instagram
                   </a>
@@ -147,14 +154,14 @@ const Contact = () => {
             </div>
 
             {/* Right Column - Form */}
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Send Message</h3>
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div className="grid grid-cols-2 gap-4">
+            <div className="order-1 lg:order-2">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Send Message</h3>
+              <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label
                       htmlFor="firstName"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
                     >
                       First Name
                     </label>
@@ -166,13 +173,13 @@ const Contact = () => {
                       value={formData.firstName}
                       onChange={handleChange}
                       placeholder="John"
-                      className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 text-sm sm:text-base"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="lastName"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
                     >
                       Last Name
                     </label>
@@ -184,7 +191,7 @@ const Contact = () => {
                       value={formData.lastName}
                       onChange={handleChange}
                       placeholder="Doe"
-                      className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 text-sm sm:text-base"
                     />
                   </div>
                 </div>
@@ -192,7 +199,7 @@ const Contact = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-300 mb-2"
+                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
                   >
                     Email
                   </label>
@@ -204,14 +211,14 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="john@example.com"
-                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 text-sm sm:text-base"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-300 mb-2"
+                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
                   >
                     Subject
                   </label>
@@ -223,14 +230,14 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Project Discussion"
-                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 text-sm sm:text-base"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-300 mb-2"
+                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
                   >
                     Message
                   </label>
@@ -240,17 +247,17 @@ const Contact = () => {
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    rows={6}
+                    rows={5}
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 resize-none text-sm sm:text-base sm:rows-6"
                     placeholder="Tell me about your project..."
-                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-purple-400 focus:outline-none transition-colors duration-300 resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 font-medium"
+                  className="w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 font-medium text-sm sm:text-base"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                   Send Message
                 </button>
               </form>
