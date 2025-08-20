@@ -53,6 +53,7 @@ myportfolio/
 │   └── (Python packages...)
 ├── .gitignore
 └── README.md
+└── requirements.txt
 
 ---
 
