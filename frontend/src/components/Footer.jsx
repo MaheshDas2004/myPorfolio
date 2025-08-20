@@ -38,7 +38,7 @@ export default function Footer() {
 
       {/* Divider & Copyright */}
       <div className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-gray-500">
-        © 2024 Mahesh Das. All rights reserved.
+        © 2025 Mahesh Das. All rights reserved.
       </div>
     </footer>
   );

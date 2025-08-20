@@ -15,6 +15,8 @@ const Contact = () => {
     message: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -25,6 +27,10 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (isSubmitting) return; // Prevent multiple submissions
+    
+    setIsSubmitting(true);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -51,6 +57,8 @@ const Contact = () => {
     } catch (error) {
       console.error(error);
       alert("Error sending message.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -255,10 +263,24 @@ const Contact = () => {
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-300 font-medium text-sm sm:text-base"
+                  disabled={isSubmitting}
+                  className={`w-full flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-colors duration-300 font-medium text-sm sm:text-base cursor-pointer ${
+                    isSubmitting 
+                      ? 'bg-gray-600 cursor-not-allowed' 
+                      : 'bg-purple-600 hover:bg-purple-700'
+                  } text-white`}
                 >
-                  <Send className="w-3 h-3 sm:w-4 sm:h-4" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3 h-3 sm:w-4 sm:h-4" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             </div>
