@@ -69,7 +69,7 @@ export default function Hero() {
 
               {/* Action Buttons */}
               {links.map((link, i) => (
-                <div key={i} className="flex flex-col sm:flex-row items-center lg:items-start gap-4 sm:gap-6">
+                <div key={i} className="flex flex-col sm:flex-row items-start lg:items-start gap-4 sm:gap-6">
                   
                   {/* Download CV Button */}
                   <button
@@ -81,12 +81,12 @@ export default function Hero() {
                   </button>
 
                   {/* Social Links */}
-                  <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="flex items-start gap-4 sm:gap-6">
                     <a
                       href={link.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-gray-400 hover:text-white hover:text-purple-400 transition-colors duration-200 p-2 rounded-lg hover:bg-purple-500/10"
+                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 p-2 rounded-lg hover:bg-purple-500/10"
                       aria-label="GitHub Profile"
                     >
                       <Github className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -97,7 +97,7 @@ export default function Hero() {
                       href={link.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-gray-400 hover:text-white hover:text-purple-400 transition-colors duration-200 p-2 rounded-lg hover:bg-purple-500/10"
+                      className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-200 p-2 rounded-lg hover:bg-purple-500/10"
                       aria-label="LinkedIn Profile"
                     >
                       <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -147,7 +147,7 @@ export default function Hero() {
                 <img
                   src={info.hero_img}
                   alt="/hero/jpg"
-                  className="rounded-2xl w-full max-w-lg sm:max-w-md lg:max-w-xl object-cover shadow-2xl shadow-purple-900/30"
+                  className="rounded-2xl w-full max-w-lg sm:max-w-md lg:max-xl object-cover shadow-2xl shadow-purple-900/30"
                 />
               </div>
             </div>
