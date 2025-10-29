@@ -89,7 +89,7 @@ npm start        # or yarn start
 ## 📷 Screenshots
 
 ## 🌐 Live Demo
-Live Demo Link
+https://maheshdas.me/
 
 ## 🔮 Future Improvements
 
@@ -105,7 +105,7 @@ Deploy on cloud hosting with CI/CD pipeline.
 
 Mahesh das
 
-Portfolio: [your-portfolio-link]
+Portfolio: https://maheshdas.me/
 
 Email: mahesh.das2205@gmail.com
 
@@ -113,6 +113,3 @@ GitHub: https://github.com/MaheshDas2004
 
 LinkedIn: https://www.linkedin.com/in/maheshii/
 
-📝 License
-
-This project is licensed under the MIT License.
