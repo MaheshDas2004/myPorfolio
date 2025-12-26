@@ -60,7 +60,7 @@ myportfolio/
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/MaheshDas2004/myPorfolio.git
 cd portfolio
 
 ### 2️⃣ Setup Virtual Environment (Root)
@@ -86,10 +86,8 @@ npm start        # or yarn start
 
 ```
 
-## 📷 Screenshots
-
 ## 🌐 Live Demo
-Live Demo Link
+https://maheshdas.me/
 
 ## 🔮 Future Improvements
 
@@ -99,13 +97,12 @@ Enable email notifications from contact form.
 
 Add animations and transitions for better UI/UX.
 
-Deploy on cloud hosting with CI/CD pipeline.
 
 ## 👤 Author
 
 Mahesh das
 
-Portfolio: [your-portfolio-link]
+Portfolio: https://maheshdas.me/
 
 Email: mahesh.das2205@gmail.com
 
@@ -113,6 +110,3 @@ GitHub: https://github.com/MaheshDas2004
 
 LinkedIn: https://www.linkedin.com/in/maheshii/
 
-📝 License
-
-This project is licensed under the MIT License.
