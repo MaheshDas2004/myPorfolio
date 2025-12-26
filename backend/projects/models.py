@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from about.models import TechnicalSkill
 class Project(models.Model):
@@ -8,6 +9,8 @@ class Project(models.Model):
     is_featured = models.BooleanField(default=False)
     github_link = models.URLField(max_length=200)
     demo_id = models.CharField(max_length=200, blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
     
     technologies = models.ManyToManyField(TechnicalSkill, related_name="projects")
 
