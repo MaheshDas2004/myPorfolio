@@ -17,6 +17,12 @@ class TechnicalSkill(models.Model):
     def __str__(self):
         return self.skill
 
+class SoftSkill(models.Model):
+    skill = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.skill
+    
 class WhatIDo(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -29,8 +35,8 @@ class WhatIDo(models.Model):
 
 class Education(models.Model):
     DEGREE_CHOICES = [
-        ('10TH', '10th Standard'),
-        ('12TH', '12th Standard'),
+        ('10TH', 'Matriculation'),
+        ('12TH', 'Intermediate'),
         ('DIPLOMA', 'Diploma'),
         ('BTECH', 'Bachelor of Technology (B.Tech)'),
         ('OTHER', 'Other'),
@@ -38,7 +44,8 @@ class Education(models.Model):
     institution = models.CharField(max_length=200)
     degree = models.CharField(max_length=50, choices=DEGREE_CHOICES) 
     field_of_study = models.CharField(max_length=200, blank=True, null=True)
-    score = models.CharField(max_length=50, blank=True, null=True)
+    percentage = models.CharField(max_length=10, blank=True, null=True)
+    cgpa = models.CharField(max_length=10, blank=True, null=True)
     start_year = models.IntegerField()
     end_year = models.IntegerField(blank=True, null=True)
     ongoing = models.BooleanField(default=False)
@@ -53,6 +60,7 @@ class PersonalInfo(models.Model):
     title=models.CharField(max_length=200)
     bio=models.TextField()
     technologies = models.ManyToManyField(TechnicalSkill, related_name="personalinfo")
+    softskills = models.ManyToManyField(SoftSkill, related_name="personalinfo")
     whatido = models.ManyToManyField(WhatIDo, related_name="personalinfo")
     education = models.ManyToManyField(Education, related_name="personalinfo")
 

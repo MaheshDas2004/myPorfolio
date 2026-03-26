@@ -1,16 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isScrollingByClick = useRef(false);
   const Navigate = useNavigate();
   const location = useLocation();
+
+  // Scroll-based active section detection
+  useEffect(() => {
+    const sectionIds = [
+      { id: "home", name: "Home" },
+      { id: "projects", name: "Projects" },
+      { id: "certificates", name: "Certificates" },
+      { id: "about", name: "About" },
+      { id: "contact", name: "Contact" },
+    ];
+
+    const handleScroll = () => {
+      if (isScrollingByClick.current) return;
+      let found = false;
+      for (let i = 0; i < sectionIds.length; i++) {
+        const section = document.getElementById(sectionIds[i].id);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom > 80) {
+            setActive(sectionIds[i].name);
+            found = true;
+            break;
+          }
+        }
+      }
+      // If no section is found (e.g., scrolled above first section), default to Home
+      if (!found) setActive("Home");
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const makeactive = (name) => {
     setActive(name);
     setIsMobileMenuOpen(false); // Close mobile menu when item is clicked
+    isScrollingByClick.current = true;
+    setTimeout(() => {
+      isScrollingByClick.current = false;
+    }, 1000); // 1 second lock
   };
 
   const toggleMobileMenu = () => {
@@ -53,6 +90,17 @@ const Navbar = () => {
                 Projects
               </a>
               <a 
+                  onClick={() => makeactive("Certificates")} 
+                  href="#certificates" 
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                    active === "Certificates"
+                      ? "bg-purple-600 text-white"
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  Certificates
+                </a>
+              <a 
                 onClick={() => makeactive("About")} 
                 href="#about" 
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
@@ -74,6 +122,7 @@ const Navbar = () => {
               >
                 Contact
               </a>
+                
             </div>
 
             {/* Mobile Menu Button */}
@@ -160,6 +209,17 @@ const Navbar = () => {
             >
               Contact
             </a>
+              <a 
+                onClick={() => makeactive("Certificates")} 
+                href="#certificates" 
+                className={`block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  active === "Certificates"
+                    ? "bg-purple-600 text-white"
+                    : "text-gray-300 hover:text-white hover:bg-purple-600/20"
+                }`}
+              >
+                Certificates
+              </a>
           </div>
         </div>
       )}
