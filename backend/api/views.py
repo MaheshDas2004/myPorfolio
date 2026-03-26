@@ -13,7 +13,8 @@ from projects.serializers import ProjectSerializer
 from contact.models import ContactInfo
 from contact.serializers import Contactserializer
 
-
+from certificates.models import Certificates
+from certificates.serializers import CertificatesSerializer
 # Create your views here.
 class HeroView(generics.ListAPIView):
     queryset = HeroSection.objects.all()
@@ -38,3 +39,7 @@ class AboutMeView(generics.ListAPIView):
 class ContactView(generics.ListAPIView):
     queryset=ContactInfo.objects.all()
     serializer_class=Contactserializer
+
+class CertificateView(generics.ListAPIView):
+    queryset=Certificates.objects.all()
+    serializer_class=CertificatesSerializer
