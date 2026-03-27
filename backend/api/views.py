@@ -43,3 +43,5 @@ class ContactView(generics.ListAPIView):
 class CertificateView(generics.ListAPIView):
     queryset=Certificates.objects.all()
     serializer_class=CertificatesSerializer
+
+from django.core.mail import send_mail

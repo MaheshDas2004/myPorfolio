@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UseFetch from "../hooks/UseFetch";
 
 const Contact = () => {
@@ -22,28 +22,29 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const url = import.meta.env.VITE_WEBHOOK_URL;
-  const key = import.meta.env.VITE_SECRET_KEY;
-
+  // --- Submit Form to Django API ---
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (isSubmitting) return; // Prevent multiple submissions
-    
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
     try {
-      const response = await fetch(url, {
+      const response = await fetch(`${baseURL}/send-mail/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": key,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          subject: formData.subject,
+          message: `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\n\n${formData.message}`,
+          recipient: "maheshdas123245@gmail.com",
+        }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         alert("Message sent successfully!");
-        // Reset form
         setFormData({
           firstName: "",
           lastName: "",
@@ -52,10 +53,10 @@ const Contact = () => {
           message: "",
         });
       } else {
-        alert("Failed to send message.");
+        alert("Failed to send message: " + data.error);
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       alert("Error sending message.");
     } finally {
       setIsSubmitting(false);
@@ -167,12 +168,7 @@ const Contact = () => {
               <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label
-                      htmlFor="firstName"
-                      className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
-                    >
-                      First Name
-                    </label>
+                    <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">First Name</label>
                     <input
                       type="text"
                       id="firstName"
@@ -185,12 +181,7 @@ const Contact = () => {
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="lastName"
-                      className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
-                    >
-                      Last Name
-                    </label>
+                    <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">Last Name</label>
                     <input
                       type="text"
                       id="lastName"
@@ -205,12 +196,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
-                  >
-                    Email
-                  </label>
+                  <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">Email</label>
                   <input
                     type="email"
                     id="email"
@@ -224,12 +210,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
-                  >
-                    Subject
-                  </label>
+                  <label htmlFor="subject" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">Subject</label>
                   <input
                     type="text"
                     id="subject"
@@ -243,12 +224,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2"
-                  >
-                    Message
-                  </label>
+                  <label htmlFor="message" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">Message</label>
                   <textarea
                     id="message"
                     name="message"

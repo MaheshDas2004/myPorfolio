@@ -7,4 +7,5 @@ urlpatterns = [
     path('aboutme/',views.AboutMeView.as_view()),
     path('contact/',views.ContactView.as_view()),
     path('certificates/',views.CertificateView.as_view()),
+    # path('send-email/', views.send_email, name='send_email'),
 ]
